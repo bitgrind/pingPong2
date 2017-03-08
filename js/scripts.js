@@ -9,43 +9,18 @@ function listMultiples(userInput){
 
   for(i=1;i <= userInput; i++){
     var currentNumber = i;
+    console.log(userInput);
     if ((currentNumber%15) == 0){
-      listArray[i] = '<li onclick="findMultiples('+prefix+i+')" class="multipleOf15"><span>ping-pong</li></span>';
+      listArray[i] = '<li class="multipleOf15"><span>ping-pong</li></span>';
     } else if ((currentNumber%5) == 0){
-      listArray[i] = '<li onclick="findMultiples('+prefix+i+')" class="multipleOf5"><span>pong</li></span>';
+      listArray[i] = '<li class="multipleOf5"><span>pong</li></span>';
     } else if((currentNumber%3) == 0){
-      listArray[i] = '<li onclick="findMultiples('+prefix+i+')" class="multipleOf3"><span>ping</li></span>';
+      listArray[i] = '<li class="multipleOf3"><span>ping</li></span>';
     } else {
-      listArray[i] = '<li onclick="findMultiples('+prefix+i+')"><span>'+prefix+currentNumber+'</span></li>';
+      listArray[i] = '<li ><span>'+prefix+currentNumber+'</span></li>';
     }
   }
   return listArray;
-}
-
-
-function findMultiples(userClick){
-  $("ul").html("");
-  prefix='';
-  if(userClick < 0){
-    prefix='-';
-    userClick = (userClick * -1);
-  }
-
-  for(i=userClick;i <= userClick+50; i++){
-    var currentNumber = i;
-    //finding multiples of 3, 5 and 15
-    if ((currentNumber%15) == 0){
-      currentNumber = '<li onclick="findMultiples('+prefix+i+')" class="multipleOf15"><span>ping-pong</li></span>';
-    } else if ((currentNumber%5) == 0){
-      currentNumber = '<li onclick="findMultiples('+prefix+i+')" class="multipleOf5"><span>pong</li></span>';
-    } else if((currentNumber%3) == 0){
-      currentNumber = '<li onclick="findMultiples('+prefix+i+')" class="multipleOf3"><span>ping</li></span>';
-    } else {
-      currentNumber = '<li onclick="findMultiples('+prefix+i+')"><span>'+prefix+currentNumber+'</span></li>';
-    }
-    //checking output
-    $("#output div ul").append(currentNumber);
-  }
 }
 
 
@@ -64,8 +39,9 @@ $(function(){
       console.log('!=');
       for(i=1;i <= userInput; i++){
         var returnVal = listMultiples(userInput);
-        $("#output div ul").append(returnVal);
       }
     }
+
+    $("#output div ul").append(returnVal);
   });
 });
