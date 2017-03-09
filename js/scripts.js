@@ -1,28 +1,25 @@
 //Business Logic
+var prefix = "";
 function listMultiples(userInput){
-  var prefix = "";
   var listArray = [];
   if(userInput < 0){
     prefix = "-";
     userInput = (userInput*-1);
   }
-
-  for(i=1;i <= userInput; i++){
-    var currentNumber = i;
-    console.log(userInput);
-    if ((currentNumber%15) == 0){
-      listArray[i] = '<li class="multipleOf15"><span>ping-pong</li></span>';
-    } else if ((currentNumber%5) == 0){
-      listArray[i] = '<li class="multipleOf5"><span>pong</li></span>';
-    } else if((currentNumber%3) == 0){
-      listArray[i] = '<li class="multipleOf3"><span>ping</li></span>';
-    } else {
-      listArray[i] = '<li ><span>'+prefix+currentNumber+'</span></li>';
-    }
+  for(var k = 1; k <= userInput; k++){
+      var currentNumber = k;
+      if ((currentNumber%15) == 0){
+        listArray[k-1] = 'ping-pong';
+      } else if ((currentNumber%5) == 0){
+        listArray[k-1] = 'pong';
+      } else if((currentNumber%3) == 0){
+        listArray[k-1] = 'ping';
+      } else {
+        listArray[k-1] = prefix+currentNumber;
+      }
   }
   return listArray;
 }
-
 
 //User Logic
 $(function(){
@@ -36,12 +33,25 @@ $(function(){
 
     //triggering function filter that prompts if user inputs 0
     if(userInput != 0){
-      console.log('!=');
-      for(i=1;i <= userInput; i++){
-        var returnVal = listMultiples(userInput);
-      }
+      console.log('!='+userInput);
+      var returnVal = listMultiples(userInput);
+    } else {
+      console.log('other else');
+      var returnVal = listMultiples(userInput);
     }
 
-    $("#output div ul").append(returnVal);
+    $(returnVal).each(function(elem,val){
+      //'<li class="multipleOf15"><span>'++'</li></span>';
+        if (val === 'ping-pong'){
+          frontendVal = '<li class="multipleOf15"><span>'+val+'</span></li>';
+        } else if (val === 'pong'){
+          frontendVal = '<li class="multipleOf5"><span>'+val+'</span></li>';
+        } else if(val === 'ping'){
+          frontendVal = '<li class="multipleOf3"><span>'+val+'</span></li>';
+        } else {
+          frontendVal = '<li><span>'+prefix+val+'</span></li>';
+        }
+        $("#output div ul").append(frontendVal);
+    });
   });
 });
